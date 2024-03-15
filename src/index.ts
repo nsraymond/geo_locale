@@ -8,7 +8,7 @@ import  router from './routes/places.route';
 dotenv.config();
 
 const app = express();
-app.set('trust proxy', false); // or configure it more securely if behind a proxy
+app.set('trust proxy', true);
 
 const PORT = process.env.PORT;
 
@@ -20,11 +20,10 @@ connectingToMongoDB();
 
 // implementing ratelimiter
 const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutes
-	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
-	standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
-})
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests, please try again later.'
+  });
 
 // Applying limiter to all requests
 app.use(limiter);

@@ -12,6 +12,7 @@ const user_route_1 = __importDefault(require("./routes/user.route"));
 const places_route_1 = __importDefault(require("./routes/places.route"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
+app.set('trust proxy', true);
 const PORT = process.env.PORT;
 // middlewares
 app.use(body_parser_1.default.json());
@@ -20,9 +21,8 @@ app.use(body_parser_1.default.json());
 // implementing ratelimiter
 const limiter = (0, express_rate_limit_1.rateLimit)({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
-    standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
-    legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests, please try again later.'
 });
 // Applying limiter to all requests
 app.use(limiter);
@@ -31,7 +31,7 @@ app.use('/api', user_route_1.default);
 app.use('/api/', places_route_1.default);
 // home route
 app.get('/', (req, res) => {
-    res.send('Welcome to to Geo-Naija Locale App');
+    res.send('Welcome to to Geo-Naija Locale Api app. Please test with Postman. This App has no views yet');
 });
 // Handling errors
 app.use((req, res, next) => {

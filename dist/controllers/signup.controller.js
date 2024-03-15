@@ -19,7 +19,6 @@ const user_model_1 = require("../models/user.model");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const JWT_SECRET = process.env.JWT_SECRET || 'jwt_secret';
-const JWT_EXPIRATION = '1h'; // Token expiration time
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, email, password } = req.body;
@@ -29,17 +28,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
         const apiKey = Math.random().toString(36).substring(2) + email.slice(0, 3); // Generate API key
-        let token;
-        try {
-            token = jsonwebtoken_1.default.sign({ email, apiKey }, JWT_SECRET, { expiresIn: JWT_EXPIRATION }); // Generate JWT token with apiKey embedded
-        }
-        catch (error) {
-            // Handle JWT token expiration error
-            if (error instanceof jsonwebtoken_1.default.JsonWebTokenError) {
-                return res.status(401).json({ message: 'JWT token has expired' });
-            }
-            throw error; // Re-throw any other unexpected errors
-        }
+        const token = jsonwebtoken_1.default.sign({ email, apiKey }, JWT_SECRET); // Generate JWT token with apiKey embedded
         const newUser = new user_model_1.UserModel({
             username,
             email,

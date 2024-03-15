@@ -8,7 +8,8 @@ import  router from './routes/places.route';
 dotenv.config();
 
 const app = express();
-app.set('trust proxy', true);
+app.set('trust proxy', false); // or configure it more securely if behind a proxy
+
 const PORT = process.env.PORT;
 
 // middlewares

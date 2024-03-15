@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const express_rate_limit_1 = require("express-rate-limit");
+// import { rateLimit } from 'express-rate-limit'
 const body_parser_1 = __importDefault(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const db_1 = require("./config/db");
@@ -19,13 +19,13 @@ app.use(body_parser_1.default.json());
 //connect db
 (0, db_1.connectingToMongoDB)();
 // implementing ratelimiter
-const limiter = (0, express_rate_limit_1.rateLimit)({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-    message: 'Too many requests, please try again later.'
-});
+// const limiter = rateLimit({
+//     windowMs: 15 * 60 * 1000, // 15 minutes
+//     max: 100, // limit each IP to 100 requests per windowMs
+//     message: 'Too many requests, please try again later.'
+//   });
 // Applying limiter to all requests
-app.use(limiter);
+// app.use(limiter);
 // routes
 app.use('/api', user_route_1.default);
 app.use('/api/', places_route_1.default);

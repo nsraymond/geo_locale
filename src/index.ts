@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { rateLimit } from 'express-rate-limit'
+// import { rateLimit } from 'express-rate-limit'
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import { connectingToMongoDB } from './config/db';
@@ -19,14 +19,14 @@ app.use(bodyParser.json());
 connectingToMongoDB();
 
 // implementing ratelimiter
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-    message: 'Too many requests, please try again later.'
-  });
+// const limiter = rateLimit({
+//     windowMs: 15 * 60 * 1000, // 15 minutes
+//     max: 100, // limit each IP to 100 requests per windowMs
+//     message: 'Too many requests, please try again later.'
+//   });
 
 // Applying limiter to all requests
-app.use(limiter);
+// app.use(limiter);
 
 
 // routes

@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import { rateLimit } from 'express-rate-limit'
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import cors from "cors";
 import { connectingToMongoDB } from './config/db';
 import userRouter from './routes/user.route';
 import  router from './routes/places.route';
@@ -9,6 +10,13 @@ dotenv.config();
 
 const app = express();
 app.set('trust proxy', true);
+
+app.use(
+    cors({
+      origin: "http://127.0.0.1:5500/",
+      credentials: true,
+    })
+  );
 
 const PORT = process.env.PORT;
 

@@ -37,7 +37,7 @@ app.use('/api/', router);
 
 // home route
 app.get('/', (req: Request, res: Response) => {
-    res.send('Welcome to to Geo-Naija Locale Api app. Please test with Postman. This App has no views yet');
+    res.send('Welcome to to Geo-Naija Locale Api app. Checkout the views link for UI');
 });
 
 // Handling errors

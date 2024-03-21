@@ -16,9 +16,7 @@ const placeSchema = new mongoose_1.default.Schema({
                     name: { type: String, required: true },
                     metadata: {
                         population: { type: Number, required: true },
-                        area: { type: String, required: true },
-                        languages: [{ type: String, required: true }],
-                        landmarks: [{ type: String, required: true }]
+                        area: { type: String, required: true }
                     },
                     landmarks: [{ type: String, required: true }]
                 }]

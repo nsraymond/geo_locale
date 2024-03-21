@@ -7,6 +7,8 @@ dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'jwt_secret';
 
+
+//signup
 export const signUp = async (req: Request, res: Response) => {
     try {
         const { username, email, password } = req.body;

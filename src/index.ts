@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-    origin: 'http://127.0.0.1:5500'
+    origin: 'https://geo-naija-locale.netlify.app/'
   };
   
   app.use(cors(corsOptions));

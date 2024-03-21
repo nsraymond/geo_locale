@@ -13,16 +13,6 @@ const user_route_1 = __importDefault(require("./routes/user.route"));
 const places_route_1 = __importDefault(require("./routes/places.route"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const corsOptions = {
-    origin: 'https://geo-naija-locale.netlify.app/'
-};
-app.use((0, cors_1.default)(corsOptions));
-// app.set('trust proxy', true);
-const PORT = process.env.PORT;
-// middlewares
-app.use(body_parser_1.default.json());
-//connect db
-(0, db_1.connectingToMongoDB)();
 const limiter = (0, express_rate_limit_1.rateLimit)({
     windowMs: 15 * 60 * 1000, // 15 minutes
     limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
@@ -32,6 +22,15 @@ const limiter = (0, express_rate_limit_1.rateLimit)({
 });
 // Apply the rate limiting middleware to all requests.
 app.use(limiter);
+const corsOptions = {
+    origin: 'https://geo-naija-locale.netlify.app/'
+};
+app.use((0, cors_1.default)(corsOptions));
+const PORT = process.env.PORT;
+// middlewares
+app.use(body_parser_1.default.json());
+//connect db
+(0, db_1.connectingToMongoDB)();
 // routes
 app.use('/api', user_route_1.default);
 app.use('/api/', places_route_1.default);

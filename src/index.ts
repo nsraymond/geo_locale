@@ -18,7 +18,7 @@ const corsOptions = {
   
 
 
-app.set('trust proxy', true);
+// app.set('trust proxy', true);
 
 const PORT = process.env.PORT;
 

@@ -17,7 +17,7 @@ const corsOptions = {
     origin: 'https://geo-naija-locale.netlify.app/'
 };
 app.use((0, cors_1.default)(corsOptions));
-app.set('trust proxy', true);
+// app.set('trust proxy', true);
 const PORT = process.env.PORT;
 // middlewares
 app.use(body_parser_1.default.json());

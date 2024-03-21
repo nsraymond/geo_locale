@@ -4,23 +4,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const express_rate_limit_1 = require("express-rate-limit");
 const body_parser_1 = __importDefault(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
-// import cors from "cors";
+const cors_1 = __importDefault(require("cors"));
 const db_1 = require("./config/db");
 const user_route_1 = __importDefault(require("./routes/user.route"));
 const places_route_1 = __importDefault(require("./routes/places.route"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
+const limiter = (0, express_rate_limit_1.rateLimit)({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+    standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+    // store: ... , // Redis, Memcached, etc. See below.
+});
+// Apply the rate limiting middleware to all requests.
+app.use(limiter);
 const PORT = process.env.PORT;
 // middlewares
 app.use(body_parser_1.default.json());
-// app.use(
-//     cors({
-//       origin: "https://client-locale-app.onrender.com",
-//       credentials: true,
-//     })
-//   );
+app.use((0, cors_1.default)({
+    origin: "https://client-locale-app.onrender.com",
+    credentials: true,
+}));
 //connect db
 (0, db_1.connectingToMongoDB)();
 // routes

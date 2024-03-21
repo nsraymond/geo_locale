@@ -27,7 +27,7 @@ app.use(limiter)
 app.use(bodyParser.json());
 app.use(
     cors({
-      origin: "https://geo-naija-locale.netlify.app",
+      origin: "https://client-locale-app.onrender.com/",
       credentials: true,
     })
   );

@@ -9,17 +9,16 @@ dotenv.config();
 
 const app = express();
 
-const corsOptions = {
-    origin: 'https://geo-naija-locale.netlify.app/'
-  };
-  
-  app.use(cors(corsOptions));
-
-
 const PORT = process.env.PORT;
 
 // middlewares
 app.use(bodyParser.json());
+app.use(
+    cors({
+      origin: "https://geo-naija-locale.netlify.app",
+      credentials: true,
+    })
+  );
 
 //connect db
 connectingToMongoDB();

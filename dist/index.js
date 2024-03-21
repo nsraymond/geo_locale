@@ -12,13 +12,13 @@ const user_route_1 = __importDefault(require("./routes/user.route"));
 const places_route_1 = __importDefault(require("./routes/places.route"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const corsOptions = {
-    origin: 'https://geo-naija-locale.netlify.app/'
-};
-app.use((0, cors_1.default)(corsOptions));
 const PORT = process.env.PORT;
 // middlewares
 app.use(body_parser_1.default.json());
+app.use((0, cors_1.default)({
+    origin: "https://geo-naija-locale.netlify.app",
+    credentials: true,
+}));
 //connect db
 (0, db_1.connectingToMongoDB)();
 // routes

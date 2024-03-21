@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import cors from "cors";
+// import cors from "cors";
 import { connectingToMongoDB } from './config/db';
 import userRouter from './routes/user.route';
 import  router from './routes/places.route';
@@ -14,12 +14,12 @@ const PORT = process.env.PORT;
 
 // middlewares
 app.use(bodyParser.json());
-app.use(
-    cors({
-      origin: "https://client-locale-app.onrender.com/",
-      credentials: true,
-    })
-  );
+// app.use(
+//     cors({
+//       origin: "https://client-locale-app.onrender.com",
+//       credentials: true,
+//     })
+//   );
 
 //connect db
 connectingToMongoDB();

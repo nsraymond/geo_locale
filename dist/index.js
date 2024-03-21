@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const cors_1 = __importDefault(require("cors"));
+// import cors from "cors";
 const db_1 = require("./config/db");
 const user_route_1 = __importDefault(require("./routes/user.route"));
 const places_route_1 = __importDefault(require("./routes/places.route"));
@@ -15,10 +15,12 @@ const app = (0, express_1.default)();
 const PORT = process.env.PORT;
 // middlewares
 app.use(body_parser_1.default.json());
-app.use((0, cors_1.default)({
-    origin: "https://client-locale-app.onrender.com/",
-    credentials: true,
-}));
+// app.use(
+//     cors({
+//       origin: "https://client-locale-app.onrender.com",
+//       credentials: true,
+//     })
+//   );
 //connect db
 (0, db_1.connectingToMongoDB)();
 // routes
